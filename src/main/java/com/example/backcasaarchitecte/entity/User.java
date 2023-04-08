@@ -8,9 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 
-// Indique que cette classe est une entité et doit être mappée à une table de base de données
 @Entity
-// Spécifie le nom de la table à laquelle cette entité doit être mappée
 @Table(name = "user")
 public class User {
 

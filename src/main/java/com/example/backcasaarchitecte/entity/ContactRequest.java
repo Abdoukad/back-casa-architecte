@@ -9,7 +9,6 @@ import javax.persistence.Column;
 
 // L'annotation @Entity indique que cette classe doit être mappée à une table de base de données
 @Entity
-// L'annotation @Table spécifie le nom de la table à laquelle cette classe doit être mappée
 @Table(name = "contact_request")
 public class ContactRequest {
 
