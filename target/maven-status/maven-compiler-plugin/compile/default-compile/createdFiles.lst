@@ -1,3 +1,5 @@
 com/example/backcasaarchitecte/repository/UserRepository.class
+com/example/backcasaarchitecte/repository/ContactRequestRepository.class
 com/example/backcasaarchitecte/BackCasaArchitecteApplication.class
+com/example/backcasaarchitecte/entity/ContactRequest.class
 com/example/backcasaarchitecte/entity/User.class

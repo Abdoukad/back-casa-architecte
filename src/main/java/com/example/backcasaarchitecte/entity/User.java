@@ -1,15 +1,14 @@
 package com.example.backcasaarchitecte.entity;
 
 // Importations nécessaires pour les annotations JPA et les types de données
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+
+
+
+import jakarta.persistence.*;
+
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     // Indique que cette propriété est la clé primaire de la table

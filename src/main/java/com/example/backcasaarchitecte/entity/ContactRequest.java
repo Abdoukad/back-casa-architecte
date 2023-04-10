@@ -1,20 +1,15 @@
 package com.example.backcasaarchitecte.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
 
-// L'annotation @Entity indique que cette classe doit être mappée à une table de base de données
+import jakarta.persistence.*;
+
+import java.util.Date;
+
 @Entity
 @Table(name = "contact_request")
 public class ContactRequest {
 
-    // L'annotation @Id indique que cet attribut est la clé primaire de la table
     @Id
-    // L'annotation @GeneratedValue spécifie la stratégie de génération de la clé primaire
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -34,6 +29,11 @@ public class ContactRequest {
     @Column(name = "message", nullable = false)
     private String message;
 
+    @Column(name = "sending_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date sendingDate;
+
+
     // Constructeurs, getters et setters
 
     // Constructeur par défaut requis par JPA
@@ -47,9 +47,11 @@ public class ContactRequest {
         this.phone = phone;
         this.subject = subject;
         this.message = message;
+        this.sendingDate = sendingDate;
+
     }
 
-    // Getters et setters pour chaque attribut
+//     Getters et setters pour chaque attribut
     public Long getId() {
         return id;
     }
@@ -96,5 +98,13 @@ public class ContactRequest {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Date getSendingDate() {
+        return sendingDate;
+    }
+
+    public void setSendingDate(Date sendingDate) {
+        this.sendingDate = sendingDate;
     }
 }
