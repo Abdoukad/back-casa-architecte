@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
+/**
+ * Entité représentant une demande de contact.
+ */
 @Entity
 @Table(name = "contact_request")
 public class ContactRequest {
@@ -35,9 +38,21 @@ public class ContactRequest {
     @Column(name = "status")
     private ContactRequestStatus status;
 
+    /**
+     * Constructeur par défaut.
+     */
     public ContactRequest() {
     }
 
+    /**
+     * Constructeur avec paramètres.
+     *
+     * @param fullName le nom complet.
+     * @param email    l'adresse e-mail.
+     * @param phone    le numéro de téléphone.
+     * @param subject  le sujet de la demande de contact.
+     * @param message  le message de la demande de contact.
+     */
     public ContactRequest(String fullName, String email, String phone, String subject, String message) {
         this.fullName = fullName;
         this.email = email;
@@ -114,6 +129,9 @@ public class ContactRequest {
         this.status = status;
     }
 
+    /**
+     * Énumération représentant les différents statuts possibles pour une demande de contact.
+     */
     public enum ContactRequestStatus {
         NEW, IN_PROGRESS, COMPLETED, ARCHIVED
     }

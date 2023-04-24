@@ -23,6 +23,11 @@ public class BackCasaArchitecteApplication {
 	}
 
 
+	/**
+	 * Bean de configuration CORS pour autoriser les requêtes provenant de l'origine spécifiée.
+	 *
+	 * @return un objet WebMvcConfigurer configuré pour autoriser les requêtes CORS.
+	 */
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
