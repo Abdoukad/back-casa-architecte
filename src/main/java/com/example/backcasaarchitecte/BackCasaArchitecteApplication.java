@@ -20,7 +20,6 @@ public class BackCasaArchitecteApplication {
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(BackCasaArchitecteApplication.class, args);
-		System.out.println("olelelelelelele");
 	}
 
 
@@ -29,7 +28,7 @@ public class BackCasaArchitecteApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:4200"); // Remplacez l'URL par l'URL de votre application Angular si nécessaire
+				registry.addMapping("/**").allowedOrigins("http://localhost:4200");
 			}
 		};
 }}

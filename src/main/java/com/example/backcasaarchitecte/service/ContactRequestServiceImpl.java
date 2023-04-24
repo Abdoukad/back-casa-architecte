@@ -3,41 +3,49 @@ package com.example.backcasaarchitecte.service;
 import com.example.backcasaarchitecte.entity.ContactRequest;
 import com.example.backcasaarchitecte.repository.ContactRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-/**
- * Implémentation de l'interface ContactRequestService pour définir les méthodes
- * de gestion des demandes de contact.
- */
 @Service
 public class ContactRequestServiceImpl implements ContactRequestService {
 
-    // Injection de l'instance de ContactRequestRepository à l'aide de l'annotation @Autowired
     @Autowired
     private ContactRequestRepository contactRequestRepository;
 
-    /**
-     * Enregistre une demande de contact dans la base de données.
-     *
-     * @param contactRequest l'objet ContactRequest à enregistrer
-     * @return l'objet ContactRequest enregistré avec son identifiant généré
-     */
     @Override
     public ContactRequest save(ContactRequest contactRequest) {
-        // Utiliser la méthode save() de contactRequestRepository pour enregistrer l'entité contactRequest
         return contactRequestRepository.save(contactRequest);
     }
 
-    /**
-     * Récupère toutes les demandes de contact stockées dans la base de données.
-     *
-     * @return une liste de tous les objets ContactRequest
-     */
     @Override
     public List<ContactRequest> findAll() {
-        // Utiliser la méthode findAll() de contactRequestRepository pour récupérer tous les enregistrements de ContactRequest
         return contactRequestRepository.findAll();
+    }
+
+    @Override
+    public Page<ContactRequest> search(String keyword, ContactRequest.ContactRequestStatus status, Pageable pageable) {
+        return contactRequestRepository.search(keyword, status, pageable);
+    }
+
+    @Override
+    public ContactRequest updateStatus(Long id, ContactRequest.ContactRequestStatus status) {
+        Optional<ContactRequest> optionalContactRequest = contactRequestRepository.findById(id);
+
+        if (optionalContactRequest.isPresent()) {
+            ContactRequest contactRequest = optionalContactRequest.get();
+            contactRequest.setStatus(status);
+            return contactRequestRepository.save(contactRequest);
+        } else {
+            throw new RuntimeException("ContactRequest not found with id: " + id);
+        }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        contactRequestRepository.deleteById(id);
     }
 }
