@@ -4,10 +4,9 @@ import com.example.backcasaarchitecte.entity.ContactRequest;
 import com.example.backcasaarchitecte.service.ContactRequestService;
 import com.example.backcasaarchitecte.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDateTime;
 
 import java.util.List;
 
@@ -16,9 +15,8 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/contact-requests")
-@CrossOrigin(origins = "http://localhost:56786")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:50362"})
 public class ContactRequestController {
-
 
     @Autowired
     private ContactRequestService contactRequestService; // service pour gérer les demandes de contact
@@ -31,8 +29,10 @@ public class ContactRequestController {
      *
      * @param contactRequest objet ContactRequest contenant les informations de la demande de contact.
      * @return ResponseEntity avec l'objet ContactRequest sauvegardé.
-     */    @PostMapping
+     */
+    @PostMapping
     public ResponseEntity<ContactRequest> createContactRequest(@RequestBody ContactRequest contactRequest) {
+        contactRequest.setSendingDate(LocalDateTime.now());
         ContactRequest savedContactRequest = contactRequestService.save(contactRequest);
 
         // Envoyer une notification par e-mail à l'adresse "casa-architecte@outlook.com"
@@ -54,40 +54,11 @@ public class ContactRequestController {
      * Récupérer toutes les demandes de contact.
      *
      * @return ResponseEntity avec la liste de toutes les demandes de contact.
-     */    @GetMapping
+     */
+    @GetMapping
     public ResponseEntity<List<ContactRequest>> getAllContactRequests() {
         List<ContactRequest> contactRequests = contactRequestService.findAll();
         return ResponseEntity.ok(contactRequests);
-    }
-
-    /**
-     * Rechercher des demandes de contact en fonction de critères de recherche (mot-clé, statut).
-     *
-     * @param keyword  mot-clé (facultatif).
-     * @param status   statut (facultatif).
-     * @param pageable objet Pageable pour la pagination.
-     * @return ResponseEntity avec la page de demandes de contact correspondant aux critères de recherche.
-     */    @GetMapping("/search")
-    public ResponseEntity<Page<ContactRequest>> searchContactRequests(
-            @RequestParam(required = false) String keyword, // mot-clé (facultatif)
-            @RequestParam(required = false) ContactRequest.ContactRequestStatus status, // statut (facultatif)
-            Pageable pageable) { // objet Pageable pour la pagination
-        Page<ContactRequest> contactRequests = contactRequestService.search(keyword, status, pageable);
-        return ResponseEntity.ok(contactRequests);
-    }
-
-    /**
-     * Modifier le statut d'une demande de contact.
-     *
-     * @param id     identifiant de la demande de contact.
-     * @param status nouveau statut.
-     * @return ResponseEntity avec l'objet ContactRequest mis à jour.
-     */    @PutMapping("/{id}/status")
-    public ResponseEntity<ContactRequest> updateContactRequestStatus(
-            @PathVariable Long id, // identifiant de la demande de contact
-            @RequestParam ContactRequest.ContactRequestStatus status) { // nouveau statut
-        ContactRequest updatedContactRequest = contactRequestService.updateStatus(id, status);
-        return ResponseEntity.ok(updatedContactRequest);
     }
 
     /**
@@ -95,7 +66,8 @@ public class ContactRequestController {
      *
      * @param id identifiant de la demande de contact à supprimer.
      * @return ResponseEntity vide avec le statut HTTP No Content (204).
-     */    @DeleteMapping("/{id}")
+     */
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContactRequest(@PathVariable Long id) { // identifiant de la demande de contact à supprimer
         contactRequestService.deleteById(id);
         return ResponseEntity.noContent().build();

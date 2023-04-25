@@ -1,12 +1,8 @@
 package com.example.backcasaarchitecte.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-import java.util.Date;
-
-/**
- * Entité représentant une demande de contact.
- */
 @Entity
 @Table(name = "contact_request")
 public class ContactRequest {
@@ -30,18 +26,14 @@ public class ContactRequest {
     @Column(name = "message", nullable = false)
     private String message;
 
-    @Column(name = "sending_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date sendingDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private ContactRequestStatus status;
+    @Column(name = "sending_date", nullable = false)
+    private LocalDateTime sendingDate; // Changez le type de Date à LocalDateTime
 
     /**
      * Constructeur par défaut.
      */
     public ContactRequest() {
+        this.sendingDate = LocalDateTime.now();
     }
 
     /**
@@ -59,8 +51,7 @@ public class ContactRequest {
         this.phone = phone;
         this.subject = subject;
         this.message = message;
-        this.sendingDate = new Date();
-        this.status = ContactRequestStatus.NEW;
+        this.sendingDate = LocalDateTime.now();
     }
 
     // Getters et setters pour chaque attribut
@@ -113,26 +104,11 @@ public class ContactRequest {
         this.message = message;
     }
 
-    public Date getSendingDate() {
+    public LocalDateTime getSendingDate() {
         return sendingDate;
     }
 
-    public void setSendingDate(Date sendingDate) {
+    public void setSendingDate(LocalDateTime sendingDate) {
         this.sendingDate = sendingDate;
-    }
-
-    public ContactRequestStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ContactRequestStatus status) {
-        this.status = status;
-    }
-
-    /**
-     * Énumération représentant les différents statuts possibles pour une demande de contact.
-     */
-    public enum ContactRequestStatus {
-        NEW, IN_PROGRESS, COMPLETED, ARCHIVED
     }
 }
