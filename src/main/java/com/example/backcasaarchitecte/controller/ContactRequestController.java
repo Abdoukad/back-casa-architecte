@@ -1,13 +1,16 @@
 package com.example.backcasaarchitecte.controller;
 
 import com.example.backcasaarchitecte.entity.ContactRequest;
+import com.example.backcasaarchitecte.entity.ContactRequestDTO;
 import com.example.backcasaarchitecte.service.ContactRequestService;
 import com.example.backcasaarchitecte.service.EmailService;
+import com.example.backcasaarchitecte.entity.ArchivedContactRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/contact-requests")
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:50362"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:56617"})
 public class ContactRequestController {
 
     @Autowired
@@ -56,9 +59,23 @@ public class ContactRequestController {
      * @return ResponseEntity avec la liste de toutes les demandes de contact.
      */
     @GetMapping
-    public ResponseEntity<List<ContactRequest>> getAllContactRequests() {
+    public ResponseEntity<List<ContactRequestDTO>> getAllContactRequests() {
         List<ContactRequest> contactRequests = contactRequestService.findAll();
-        return ResponseEntity.ok(contactRequests);
+        List<ContactRequestDTO> contactRequestDTOs = new ArrayList<>();
+
+        for (ContactRequest request : contactRequests) {
+            ContactRequestDTO dto = new ContactRequestDTO();
+            dto.setId(request.getId());
+            dto.setFullName(request.getFullName());
+            dto.setEmail(request.getEmail());
+            dto.setPhone(request.getPhone());
+            dto.setSubject(request.getSubject());
+            dto.setMessage(request.getMessage());
+            dto.setSendingDate(request.getSendingDate().toString());
+            contactRequestDTOs.add(dto);
+        }
+
+        return ResponseEntity.ok(contactRequestDTOs);
     }
 
     /**
@@ -71,6 +88,29 @@ public class ContactRequestController {
     public ResponseEntity<Void> deleteContactRequest(@PathVariable Long id) { // identifiant de la demande de contact à supprimer
         contactRequestService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * Archiver une demande de contact.
+     *
+     * @param id identifiant de la demande de contact à archiver.
+     * @return ResponseEntity avec l'objet ArchivedContactRequest sauvegardé.
+     */
+    @PostMapping("/archive/{id}")
+    public ResponseEntity<ArchivedContactRequest> archiveContactRequest(@PathVariable Long id) {
+        ArchivedContactRequest archivedContactRequest = contactRequestService.archiveById(id);
+        return ResponseEntity.ok(archivedContactRequest);
+    }
+
+    /**
+     * Récupérer toutes les demandes de contact archivées.
+     *
+     * @return ResponseEntity avec la liste de toutes les demandes de contact archivées.
+     */
+    @GetMapping("/archived")
+    public ResponseEntity<List<ArchivedContactRequest>> getAllArchivedContactRequests() {
+        List<ArchivedContactRequest> archivedContactRequests = contactRequestService.findAllArchived();
+        return ResponseEntity.ok(archivedContactRequests);
     }
 
 }
