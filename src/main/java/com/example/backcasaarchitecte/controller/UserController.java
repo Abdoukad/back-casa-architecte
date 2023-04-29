@@ -1,7 +1,5 @@
 package com.example.backcasaarchitecte.controller;
 
-import com.example.backcasaarchitecte.entity.User;
-import com.example.backcasaarchitecte.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

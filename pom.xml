@@ -63,6 +63,7 @@
             <artifactId>spring-context-support</artifactId>
             <version>6.0.7</version>
         </dependency>
+
     </dependencies>
 
     <!-- Configuration du build -->
