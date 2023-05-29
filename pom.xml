@@ -33,6 +33,21 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- Spring Boot Starter Security pour faciliter l'intégration de Spring Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- Spring Boot Starter OAuth2 Client pour faciliter l'intégration du client OAuth2 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+        <!-- Spring Security OAuth2 JOSE pour la gestion de JSON Web Tokens -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
+        </dependency>
         <!-- Connecteur JDBC MySQL pour la connexion à la base de données MySQL -->
         <dependency>
             <groupId>mysql</groupId>
@@ -63,7 +78,6 @@
             <artifactId>spring-context-support</artifactId>
             <version>6.0.7</version>
         </dependency>
-
     </dependencies>
 
     <!-- Configuration du build -->
