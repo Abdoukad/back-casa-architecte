@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/contact-requests")
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:56617"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:62913"})
 public class ContactRequestController {
 
     @Autowired
