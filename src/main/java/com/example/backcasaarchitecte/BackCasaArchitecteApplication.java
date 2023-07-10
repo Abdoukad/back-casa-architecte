@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
+
 /**
  * Classe principale de l'application BackCasaArchitecte.
  * Cette classe est annotée avec @SpringBootApplication pour indiquer à Spring Boot que c'est la classe principale de l'application.
@@ -13,27 +15,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class BackCasaArchitecteApplication {
 
-	/**
-	 * Méthode main de l'application, qui démarre le serveur Spring Boot.
-	 *
-	 * @param args les arguments de la ligne de commande
-	 */
-	public static void main(String[] args) {
-		SpringApplication.run(BackCasaArchitecteApplication.class, args);
-	}
+    /**
+     * Méthode main de l'application, qui démarre le serveur Spring Boot.
+     *
+     * @param args les arguments de la ligne de commande
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(BackCasaArchitecteApplication.class, args);
+    }
 
 
-	/**
-	 * Bean de configuration CORS pour autoriser les requêtes provenant de l'origine spécifiée.
-	 *
-	 * @return un objet WebMvcConfigurer configuré pour autoriser les requêtes CORS.
-	 */
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:4200");
-			}
-		};
-}}
+}
