@@ -38,14 +38,14 @@ public class SecurityConfig {
      */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+/*
         http.authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll()
                 .requestMatchers("/api/contact-requests")
-                .permitAll()
+        *//*        .permitAll()
                 .requestMatchers("/api/contacts")
-                .permitAll()
+        *//*        .permitAll()
                 .requestMatchers("/login")
                 .permitAll()
                 .anyRequest()
@@ -59,8 +59,8 @@ public class SecurityConfig {
                 .oauth2Login()
                 .defaultSuccessUrl("http://localhost:4200/admin ")
                 .failureUrl("/loginFailure"); ;
-        ;
-        return http.build();
+        ;*/
+        return http.authorizeHttpRequests().anyRequest().permitAll().and().csrf().disable().cors().disable().build();
 /*
                 http
                 // Configurer les autorisations de requêtes HTTP.
