@@ -1,3 +1,4 @@
+/*
 package com.example.backcasaarchitecte.controller;
 
 import com.example.backcasaarchitecte.entity.ArchivedContactRequest;
@@ -13,9 +14,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * Contrôleur REST pour gérer les demandes de contact.
- */
+ *//*
+
 @RestController
 @RequestMapping("/api/contacts")
 public class ContactController {
@@ -23,11 +26,13 @@ public class ContactController {
     @Autowired
     private ContactRequestService contactRequestService; // service pour gérer les demandes de contact
 
-    /**
+    */
+/**
      * Récupérer toutes les demandes de contact.
      *
      * @return ResponseEntity avec la liste de toutes les demandes de contact.
-     */
+     *//*
+
     @GetMapping
     public ResponseEntity<List<ContactRequestDTO>> getAllContactRequests() {
         List<ContactRequest> contactRequests = contactRequestService.findAll();
@@ -48,35 +53,41 @@ public class ContactController {
         return ResponseEntity.ok(contactRequestDTOs);
     }
 
-    /**
+    */
+/**
      * Supprimer une demande de contact.
      *
      * @param id identifiant de la demande de contact à supprimer.
      * @return ResponseEntity vide avec le statut HTTP No Content (204).
-     */
+     *//*
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContactRequest(@PathVariable Long id) { // identifiant de la demande de contact à supprimer
         contactRequestService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    /**
+    */
+/**
      * Archiver une demande de contact.
      *
      * @param id identifiant de la demande de contact à archiver.
      * @return ResponseEntity avec l'objet ArchivedContactRequest sauvegardé.
-     */
+     *//*
+
     @PostMapping("/archive/{id}")
     public ResponseEntity<ArchivedContactRequest> archiveContactRequest(@PathVariable Long id) {
         ArchivedContactRequest archivedContactRequest = contactRequestService.archiveById(id);
         return ResponseEntity.ok(archivedContactRequest);
     }
 
-    /**
+    */
+/**
      * Récupérer toutes les demandes de contact archivées.
      *
      * @return ResponseEntity avec la liste de toutes les demandes de contact archivées.
-     */
+     *//*
+
     @GetMapping("/archived")
     public ResponseEntity<List<ArchivedContactRequest>> getAllArchivedContactRequests() {
         List<ArchivedContactRequest> archivedContactRequests = contactRequestService.findAllArchived();
@@ -84,3 +95,4 @@ public class ContactController {
     }
 
 }
+*/
